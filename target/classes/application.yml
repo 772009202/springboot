@@ -1,0 +1,28 @@
+# server
+server:
+  port: 8081
+
+spring:
+  # 引入其他文件
+  profiles:
+    include:
+      - my
+    active: sit
+  #   rabbitmq
+  rabbitmq:
+    host: 121.36.66.131
+    port: 5672
+    username: admin
+    password: admin
+    publisher-confirms: true
+    publisher-returns: true
+    connection-timeout: 2000
+    virtual-host: my_vhost
+    listener:
+      acknowledge-mode: manual
+
+# mybatis-plus 开启日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
