@@ -2,4 +2,4 @@
 test.iml
 .idea
 *.class
-
+src/main/resources/application.yml

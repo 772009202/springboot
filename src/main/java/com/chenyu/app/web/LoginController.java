@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -57,5 +58,12 @@ public class LoginController {
   public Response login() {
     User obj = (User) SecurityUtils.getSubject().getPrincipal();
     return Response.success(obj);
+  }
+
+  @RequestMapping("/getUserInfo2")
+  @ResponseBody
+  public Response login2() {
+    User obj = (User) SecurityUtils.getSubject().getPrincipal();
+    return Response.success("succscc");
   }
 }
