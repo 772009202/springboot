@@ -54,11 +54,11 @@ public class Response<T> implements Serializable {
     this.message = message;
   }
 
-  public T getObj() {
+  public T getData() {
     return data;
   }
 
-  public void setObj(T obj) {
-    this.data = obj;
+  public void setData(T data) {
+    this.data = data;
   }
 }
