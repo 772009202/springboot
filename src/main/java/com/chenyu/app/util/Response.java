@@ -14,12 +14,12 @@ public class Response<T> implements Serializable {
 
   private String message;
 
-  private T obj;
+  private T data;
 
-  public Response(int code, String message, T obj) {
+  public Response(int code, String message, T data) {
     this.code = code;
     this.message = message;
-    this.obj = obj;
+    this.data = data;
   }
 
   public static Response success(String message) {
@@ -55,10 +55,10 @@ public class Response<T> implements Serializable {
   }
 
   public T getObj() {
-    return obj;
+    return data;
   }
 
   public void setObj(T obj) {
-    this.obj = obj;
+    this.data = obj;
   }
 }

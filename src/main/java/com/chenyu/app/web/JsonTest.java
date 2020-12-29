@@ -1,8 +1,7 @@
 package com.chenyu.app.web;
 
 import com.chenyu.app.entity.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -11,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("json")
+@Slf4j
 public class JsonTest {
-
-  private Logger logger = LoggerFactory.getLogger(this.getClass());
 
   /**
    * 尽量不要在get中用json数据
@@ -23,6 +21,6 @@ public class JsonTest {
    */
   @GetMapping
   public void getJson(@RequestParam("userName") String userName, @RequestBody User user) {
-    logger.info("\n【参数】userName:{},user:{}", userName, user.toString());
+    log.info("\n【参数】userName:{},user:{}", userName, user.toString());
   }
 }
