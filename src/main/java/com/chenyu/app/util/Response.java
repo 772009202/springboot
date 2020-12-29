@@ -26,8 +26,8 @@ public class Response<T> implements Serializable {
     return new Response(1, message, null);
   }
 
-  public static Response success(Object obj) {
-    return new Response(1, "", obj);
+  public static Response success(Object data) {
+    return new Response(1, "", data);
   }
 
   public static <T> Response<T> success(String message, T t) {
@@ -54,11 +54,11 @@ public class Response<T> implements Serializable {
     this.message = message;
   }
 
-  public T getObj() {
+  public T getData() {
     return data;
   }
 
-  public void setObj(T obj) {
-    this.data = obj;
+  public void setData(T data) {
+    this.data = data;
   }
 }
