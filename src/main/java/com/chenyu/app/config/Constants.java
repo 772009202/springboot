@@ -6,7 +6,7 @@ package com.chenyu.app.config;
  */
 public interface Constants {
 
-    String CHENYU_QUEUE = "chenyu";
+  String CHENYU_QUEUE = "chenyu";
 
-    String CHENYU_EXCHANGE= "chenyu";
+  String CHENYU_EXCHANGE = "chenyu";
 }

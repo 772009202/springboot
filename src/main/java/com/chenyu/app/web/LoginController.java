@@ -1,8 +1,10 @@
 package com.chenyu.app.web;
 
+import com.chenyu.app.config.redis.RedisConstant;
 import com.chenyu.app.config.shiro.JwtUtil;
 import com.chenyu.app.dao.UserRepository;
 import com.chenyu.app.entity.User;
+import com.chenyu.app.entity.UserAndToken;
 import com.chenyu.app.util.RedisUtils;
 import com.chenyu.app.util.Response;
 import org.apache.shiro.SecurityUtils;
@@ -48,9 +50,10 @@ public class LoginController {
 
     String token = JwtUtil.sign(user.getUsername(), user.getPassword() + new Date().toString());
     // 把身份信息序列化存在redis里 这样每个节点只要通过redis就可以获取到身份 而不是数据库
-    redisUtils.setCacheObject(token, sysUser, 5 * 60 * 1000, TimeUnit.SECONDS);
+    UserAndToken uat = new UserAndToken(token, sysUser);
+    String redisKey = RedisConstant.PREFIX_TOKEN + user.getUsername();
+    redisUtils.setCacheObject(redisKey, uat, 5 * 60 * 1000, TimeUnit.SECONDS);
     res.setHeader("access_token", token);
-
     return Response.success("成功");
   }
 

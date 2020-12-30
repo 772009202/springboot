@@ -1,7 +1,9 @@
 package com.chenyu.app.config.shiro;
 
+import com.chenyu.app.config.redis.RedisConstant;
 import com.chenyu.app.dao.UserRepository;
 import com.chenyu.app.entity.User;
+import com.chenyu.app.entity.UserAndToken;
 import com.chenyu.app.util.RedisUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -93,18 +95,18 @@ public class ShiroRealm extends AuthorizingRealm {
 
     // 查询用户信息
     User loginUser = new User();
-    //    User sysUser = userRepository.findByUsername(username);
-    User sysUser = redisUtil.getCacheObject(token);
-    if (sysUser == null) {
+    Object obj = redisUtil.getCacheObject(RedisConstant.PREFIX_TOKEN + username);
+    UserAndToken uat = redisUtil.getCacheObject(RedisConstant.PREFIX_TOKEN + username);
+    if (uat == null) {
       throw new AuthenticationException("用户不存在!");
     }
 
     // 校验token是否超时失效 & 或者账号密码是否错误
-    if (!jwtTokenRefresh(token, username, sysUser.getPassword())) {
+    if (!jwtTokenRefresh(token, username, uat.getUser().getPassword())) {
       throw new AuthenticationException("Token失效请重新登录!");
     }
 
-    BeanUtils.copyProperties(sysUser, loginUser);
+    BeanUtils.copyProperties(uat.getUser(), loginUser);
     return loginUser;
   }
 
@@ -123,12 +125,17 @@ public class ShiroRealm extends AuthorizingRealm {
    * @return
    */
   public boolean jwtTokenRefresh(String token, String userName, String passWord) {
-    User user = redisUtil.getCacheObject(token);
-    if (user == null) {
+    UserAndToken uat = redisUtil.getCacheObject(RedisConstant.PREFIX_TOKEN + userName);
+    // 为空
+    if (uat == null || !uat.getAccessToken().equals(token)) {
       return false;
     }
     // 更新token的时效
-    redisUtil.setCacheObject(token, user, (int) (JwtUtil.EXPIRE_TIME / 1000), TimeUnit.SECONDS);
+    redisUtil.setCacheObject(
+        RedisConstant.PREFIX_TOKEN + userName,
+        uat,
+        (int) (JwtUtil.EXPIRE_TIME / 1000),
+        TimeUnit.SECONDS);
 
     return true;
   }

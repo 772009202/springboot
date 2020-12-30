@@ -145,6 +145,9 @@ public class RedisUtils {
     return redisTemplate.opsForSet().members(key);
   }
 
+  public void delete(String key) {
+    redisTemplate.opsForHash().delete(key);
+  }
   /**
    * 缓存Map
    *
