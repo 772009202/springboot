@@ -2,4 +2,6 @@
 test.iml
 .idea
 *.class
+*.log
+target
 src/main/resources/application.yml
