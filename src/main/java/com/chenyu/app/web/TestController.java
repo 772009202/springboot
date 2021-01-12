@@ -3,6 +3,7 @@ package com.chenyu.app.web;
 import com.chenyu.app.dao.PersonRepository;
 import com.chenyu.app.entity.Person;
 import com.chenyu.app.service.IUserService;
+import com.chenyu.app.service.PersonJdbcService;
 import com.chenyu.app.util.MqProducer;
 import com.chenyu.app.util.RedisUtils;
 import com.chenyu.app.util.Response;
@@ -37,6 +38,8 @@ public class TestController {
   @Autowired private RedisUtils redisUtils;
 
   @Autowired private IUserService userService;
+
+  @Autowired private PersonJdbcService personJdbcService;
 
   @GetMapping("test")
   @ResponseBody
@@ -82,5 +85,11 @@ public class TestController {
   @PostMapping("swagger")
   public void swagger(@RequestParam String id, @RequestBody Person person) {
     System.out.println("跑过了");
+  }
+
+  @GetMapping("test/jdbc")
+  @ResponseBody
+  public Person getById(@RequestParam("id") Long id) {
+    return personJdbcService.queryPersonById(id);
   }
 }

@@ -42,14 +42,14 @@ public class ShiroConfig {
     filterChainDefinitionMap.put("/v2/**", "anon");
     filterChainDefinitionMap.put("/swagger-resources/**", "anon");
     filterChainDefinitionMap.put("/configuration/**", "anon");
-    //    filterChainDefinitionMap.put("/**", "anon");
+    filterChainDefinitionMap.put("/**", "anon");
 
     // 添加自己的过滤器并且取名为jwt
     Map<String, Filter> filterMap = new HashMap<String, Filter>(1);
     filterMap.put("jwt", new JwtFilter());
     shiroFilterFactoryBean.setFilters(filterMap);
     //        // 过滤链定义，从上向下顺序执行，一般将放在最为下边
-    filterChainDefinitionMap.put("/**", "jwt");
+    //    filterChainDefinitionMap.put("/**", "jwt");
 
     // 未授权界面返回JSON
     shiroFilterFactoryBean.setUnauthorizedUrl("/sys/common/403");
