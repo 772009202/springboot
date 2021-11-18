@@ -3,6 +3,7 @@ package com.chenyu;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * @author chenyu
@@ -10,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.chenyu.app.mapper")
+@EnableAspectJAutoProxy
 public class App {
 
   public static void main(String[] args) {
-      SpringApplication.run(App.class);
+    SpringApplication.run(App.class);
   }
-
 }
