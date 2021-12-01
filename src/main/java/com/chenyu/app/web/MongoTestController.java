@@ -17,6 +17,6 @@ public class MongoTestController {
 
   @RequestMapping("/test")
   public void test() {
-    mongoService.aggregate2();
+    mongoService.aggregate3();
   }
 }
