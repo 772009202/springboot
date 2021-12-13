@@ -1,19 +1,20 @@
 package com.chenyu.app.mongoService;
 
+import com.chenyu.app.entity.Person;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.LookupOperation;
+import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,10 @@ public class MongoService {
 
   @Autowired private MongoTemplate mongoTemplate;
 
+  public void save(Person person) {
+    mongoTemplate.save(person);
+  }
+
   public void aggregate() {
     LookupOperation lookup =
         LookupOperation.newLookup()
@@ -37,6 +42,7 @@ public class MongoService {
     List<AggregationOperation> operations = new ArrayList<>();
 
     operations.add(lookup);
+    ProjectionOperation projectionOperation = new ProjectionOperation();
 
     Aggregation aggregation = Aggregation.newAggregation(operations);
 
@@ -191,5 +197,34 @@ public class MongoService {
       Document next = iterator.next();
       System.out.println(next);
     }
+  }
+
+  /** 置顶功能 */
+  public void aggregate4() {
+
+    List<AggregationOperation> operations = new ArrayList<>();
+
+    Field[] coordinationFields = Coodrdination.class.getDeclaredFields();
+    String[] coordinationFiledNames = new String[coordinationFields.length];
+
+    for (int i = 0; i < coordinationFields.length; i++) {
+      coordinationFiledNames[i] = coordinationFields[i].getName();
+    }
+
+    ProjectionOperation project =
+        Aggregation.project()
+            .andExpression("{$indexOfArray:{{'2','3','6'}, '$_id'}}")
+            .as("indexSort")
+            .andInclude(coordinationFiledNames);
+    SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "indexSort");
+
+    operations.add(project);
+    operations.add(sort);
+
+    AggregationResults<DBObject> coordination =
+        mongoTemplate.aggregate(
+            Aggregation.newAggregation(operations), "coordination", DBObject.class);
+    List<DBObject> mappedResults = coordination.getMappedResults();
+    System.out.println(mappedResults.toString());
   }
 }

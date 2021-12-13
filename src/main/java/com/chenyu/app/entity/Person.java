@@ -3,6 +3,7 @@ package com.chenyu.app.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.annotation.TypeAlias;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 @Table(name = "person")
 @Data
 @ApiModel(value = "人")
+@TypeAlias("person")
 public class Person {
 
   private static final long serialVersionUID = 0L;
