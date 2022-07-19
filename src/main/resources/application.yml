@@ -9,20 +9,20 @@ spring:
       - my
     active: dev
   #   rabbitmq
-  rabbitmq:
-    host: 121.36.66.131
-    port: 5672
-    username: admin
-    password: admin
-    publisher-confirms: true
-    publisher-returns: true
-    connection-timeout: 2000
-    virtual-host: my_vhost
-    listener:
-      acknowledge-mode: manual
-  data:
-    mongodb:
-      uri: mongodb://admin:123456@121.199.165.140:27017/coordination-sit?authSource=admin
+#  rabbitmq:
+#    host: 121.36.66.131
+#    port: 5672
+#    username: admin
+#    password: admin
+#    publisher-confirms: true
+#    publisher-returns: true
+#    connection-timeout: 2000
+#    virtual-host: my_vhost
+#    listener:
+#      acknowledge-mode: manual
+#  data:
+#    mongodb:
+#      uri: mongodb://admin:123456@121.199.165.140:27017/coordination-sit?authSource=admin
 # mybatis-plus 开启日志
 mybatis-plus:
   configuration:
