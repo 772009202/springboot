@@ -59,8 +59,8 @@ public class LoginController {
 
   @RequestMapping("/getUserInfo")
   public Response login() {
-    User obj = (User) SecurityUtils.getSubject().getPrincipal();
-    return Response.success(obj);
+    User data = (User) SecurityUtils.getSubject().getPrincipal();
+    return Response.success(data);
   }
 
   @RequestMapping("/getUserInfo2")
