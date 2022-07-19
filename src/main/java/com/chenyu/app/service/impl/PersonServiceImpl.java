@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chenyu.app.entity.Person;
 import com.chenyu.app.mapper.PersonMapper;
 import com.chenyu.app.service.IPersonService;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 服务实现类
@@ -18,15 +20,24 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
 
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public void testTransactional(int num) {
-    // 数据库操作
-    Person person = new Person();
-    person.setName("陈雨的事务控制" + num);
-    person.setAge(26);
-    person.setId((long) num);
-    save(person);
+  @Async
+  public Integer testTransactional(int num) {
+    try {
+      // 数据库操作
+      Person person = new Person();
+      person.setName("陈雨的事务控制" + num);
+      person.setAge(26);
+      person.setId((long) num);
+      save(person);
 
-    // 可能出现异常出现异常
-    int a = 10 / num;
+      // 可能出现异常出现异常
+      int a = 10 / num;
+      System.out.println("1");
+      return a;
+    } catch (Exception e) {
+      System.out.println(e);
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+    }
+    return 1000;
   }
 }

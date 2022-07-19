@@ -21,8 +21,9 @@ public class TransactionalController {
   public Response getTransaction(@RequestParam(name = "number") int number) {
     try {
       iPersonService.testTransactional(number);
+      System.out.println("2");
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e);
       return Response.fail(e.getMessage().substring(0, 50));
     }
 

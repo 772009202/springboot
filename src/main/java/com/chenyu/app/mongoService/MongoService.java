@@ -117,7 +117,7 @@ public class MongoService {
     }
   }
 
-  /** 联表查询多字段 */
+  /** 联表查询多字段 这个方法不好可以使用expr字段之间相等来代替关联的时候两个条件 */
   public void aggregate3() {
     // 所有操作的集合
     List<Bson> pipeline = new ArrayList<>();

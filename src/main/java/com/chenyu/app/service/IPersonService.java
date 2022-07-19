@@ -16,5 +16,5 @@ public interface IPersonService extends IService<Person> {
    *
    * @param num
    */
-  void testTransactional(int num);
+  Integer testTransactional(int num);
 }
