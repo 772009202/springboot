@@ -3,23 +3,12 @@ server:
   port: 8081
 
 spring:
-  # 引入其他文件
-  profiles:
-    include:
-      - my
-    active: sit
-  #   rabbitmq
-  rabbitmq:
-    host: 121.36.66.131
-    port: 5672
-    username: admin
-    password: admin
-    publisher-confirms: true
-    publisher-returns: true
-    connection-timeout: 2000
-    virtual-host: my_vhost
-    listener:
-      acknowledge-mode: manual
+  # 数据源
+  datasource:
+    url: jdbc:mysql://43.142.170.129:3306/test?useUnicode=true&amp&useSSL=false&amp&characterEncoding=UTF-8&amp&serverTimezone=GMT%2B8
+    driver-class-name:  com.mysql.jdbc.Driver
+    username: root
+    password: chenyu@123!
 
 # mybatis-plus 开启日志
 mybatis-plus:

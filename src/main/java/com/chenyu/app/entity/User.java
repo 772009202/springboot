@@ -1,71 +1,76 @@
 package com.chenyu.app.entity;
 
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @author chenyu
  * @date 2020-08-31
  */
-@Entity
-@Table(name = "user")
 @Api(value = "用户表")
+@TableName("user")
 public class User implements Serializable {
 
-  private static final long serialVersionUID = 0L;
+    private static final long serialVersionUID = 0L;
 
-  @Id
-  @GeneratedValue
-  @ApiModelProperty(value = "id")
-  private Long id;
+    @ApiModelProperty(value = "id")
+    private Long id;
 
-  @ApiModelProperty(value = "账号")
-  private String username;
+    @ApiModelProperty(value = "账号")
+    private String userName;
 
-  @ApiModelProperty(value = "密码")
-  private String password;
+    @ApiModelProperty(value = "密码")
+    private String userNo;
 
-  public Long getId() {
-    return id;
-  }
+    private String dFlag;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    private String phone;
 
-  public String getUsername() {
-    return username;
-  }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public String getPhone() {
+        return phone;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  @Override
-  public String toString() {
-    return "User{"
-        + "id="
-        + id
-        + ", username='"
-        + username
-        + '\''
-        + ", password='"
-        + password
-        + '\''
-        + '}';
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
+    }
+
+    public String getdFlag() {
+        return dFlag;
+    }
+
+    public void setdFlag(String dFlag) {
+        this.dFlag = dFlag;
+    }
 }
